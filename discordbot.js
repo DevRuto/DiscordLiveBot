@@ -29,9 +29,11 @@ discordClient.on('message', msg => {
 
 discordClient.login(discordToken);
 
-function onStreamLive(userid, username) {
+
+//https://www.discordjs.guide/#/popular-topics/miscellaneous-examples?id=richembed-builder
+function onStreamLive(username, data) {
     for (var i = 0; i < logChannels.length; i++) {
-        discordClient.channels.get(logChannels[i]).send(`${username} went live`);
+        discordClient.channels.get(logChannels[i]).send(`${username} went live: ${data.title}`);
     }
 }
 

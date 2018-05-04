@@ -56,7 +56,7 @@ module.exports = class TwitchApi {
                     var data = body['data'];
                     if (data.length == 0) {
                         // OFFLINE USER
-                        this.onStreamEnd(id, this._ids[id]);
+                        this.onStreamEnd(this._ids[id], data[0]);
                     } else {
                         this.onStreamLive(id, this._ids[id]);
                     }
@@ -115,6 +115,24 @@ module.exports = class TwitchApi {
                 console.log(`Unable to subscribe to user ${id}`)
             } 
         });
+    }
+
+    stopWatchingUser(id) {
+        request.post('https://api.twitch.tv/helix/webhooks/hub', {
+        'auth': {
+            'bearer': this._accessToken
+        },  
+        json: {
+            'hub.callback': `http://rutoc.me:${this.webhookListenerPort}/${id}`,
+            'hub.mode': `unsubscribe`,
+            'hub.topic': `https://api.twitch.tv/helix/streams?user_id=${id}`
+        }
+    }, (err, res, body) => {
+        if (res.statusCode == 400) {
+            // unable to subscribe
+            console.log(`Unable to unsubscribe to user ${id}`)
+        } 
+    });
     }
 }
 
