@@ -9,3 +9,4 @@ Add your bot infos in config.json
 
 TODO
 * Add discord commands to add/remove streamers
+* rich text
