@@ -12,7 +12,8 @@ module.exports = class TwitchApi {
         this._watching = [];
     }
 
-    init(listenerPort, successCallback, streamLiveCallback, streamEndCallback) {
+    init(listenerUrl, listenerPort, successCallback, streamLiveCallback, streamEndCallback) {
+        this.webhookHost = listenerUrl;
         this.webhookListenerPort = listenerPort;
         this.onSuccess = successCallback;
         this.onStreamLive = streamLiveCallback;
@@ -56,9 +57,9 @@ module.exports = class TwitchApi {
                     var data = body['data'];
                     if (data.length == 0) {
                         // OFFLINE USER
-                        this.onStreamEnd(this._ids[id], data[0]);
+                        this.onStreamEnd(id, this._ids[id]);
                     } else {
-                        this.onStreamLive(id, this._ids[id]);
+                        this.onStreamLive(this._ids[id], data[0]);
                     }
                     res.writeHead(202);
                     res.end();
@@ -104,7 +105,7 @@ module.exports = class TwitchApi {
                 'bearer': this._accessToken
             },
             json: {
-                'hub.callback': `http://rutoc.me:${this.webhookListenerPort}/${id}`,
+                'hub.callback': `http://${this.webhookHost}:${this.webhookListenerPort}/${id}`,
                 'hub.mode': `subscribe`,
                 'hub.topic': `https://api.twitch.tv/helix/streams?user_id=${id}`,
                 'hub.lease_seconds': '864000' // max

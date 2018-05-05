@@ -1,0 +1,28 @@
+{
+  "name": "discordlivebot",
+  "version": "1.0.0",
+  "description": "Written in Node.JS",
+  "main": "discordbot.js",
+  "dependencies": {
+    "discord.js": "^11.3.2",
+    "http": "^0.0.0",
+    "node-webhooks": "^1.3.0",
+    "request": "^2.85.0",
+    "sequelize": "^4.37.6",
+    "sqlite3": "^4.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RutoTV/DiscordLiveBot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RutoTV/DiscordLiveBot/issues"
+  },
+  "homepage": "https://github.com/RutoTV/DiscordLiveBot#readme"
+}

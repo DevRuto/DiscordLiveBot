@@ -19,10 +19,11 @@ const streamRoute = (req, res) => {
     // Subscription confirmation
     if (req.method == 'GET') {
         // success
-        var queryData = url.parse(req.url, true).query;
+        //var queryData = url.parse(req.url, true).query;
         res.writeHead(200);
         // echo back challenge
-        res.end(queryData['hub.challenge']);
+        res.end('234');
+        //res.end(queryData['hub.challenge']);
     }
 }
 
