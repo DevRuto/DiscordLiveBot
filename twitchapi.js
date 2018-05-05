@@ -29,7 +29,24 @@ module.exports = class TwitchApi {
             this.startWebhookListener();
             // renew token at some seconds before expiration (3 seconds before?)
             // TODO: figure out why no refresh token is returned
-            // setTimeout(this.initToken, (this._expiresIn - 3)*1000);
+            // setTimeout(this.renew, (this._expiresIn - 3)*1000);
+            setTimeout(() => {this.renew();}, (this._expiresIn - 3)*1000);
+        });
+    }
+
+    renew() {
+        console.log("renewed token");
+        request.post(`https://id.twitch.tv/oauth2/token?client_id=${this._token}&client_secret=${this._secret}&grant_type=client_credentials`, (err, res, body) => {
+            if (err) {
+                console.log('error occured in retrieving oauth token, unable to renew');
+                return;
+            }
+            body = JSON.parse(body);
+            this._accessToken = body['access_token'];
+            this._expiresIn = body['expires_in'];
+            // renew token at some seconds before expiration (3 seconds before?)
+            // TODO: figure out why no refresh token is returned
+            setTimeout(() => {this.renew();}, (this._expiresIn - 3)*1000);
         });
     }
 

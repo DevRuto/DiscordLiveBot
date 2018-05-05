@@ -1,15 +1,15 @@
 // Edit your info in config.json
 const { prefix, listenUrl, listenPort, discordToken, twitchToken, twitchSecret } = require('./config.json');
 
+// channels to log to
+const logChannels = ['441691196339781644'];
+const twitchNames = ['rutokz'];
+
 const Discord = require('discord.js');
 const TwitchApi = require('./twitchapi');
 
 const discordClient = new Discord.Client();
 const twitch = new TwitchApi(twitchToken, twitchSecret);
-
-// channels to log to
-const logChannels = ['441691196339781644'];
-const twitchNames = ['rutokz'];
 
 const messageCache = {};
 
